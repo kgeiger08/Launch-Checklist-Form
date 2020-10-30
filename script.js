@@ -2,17 +2,15 @@
 
 window.addEventListener("load", function() {
    
-   let json = [];
+   // let json = [];
    fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response){
      
       response.json().then(function(json) {
    
          let missionTarget = document.getElementById("missionTarget");
          let index = 2;
-         for(let i = 0; i < json.length; i++) {
 
          missionTarget.innerHTML = `
-                    <div>
                     <h2>Mission Destination</h2>
                         <ol>
                            <li>Name: ${json[index].name}</li>
@@ -22,10 +20,8 @@ window.addEventListener("load", function() {
                            <li>Number of Moons: ${json[index].moons}</li>
                         </ol>
                         <img src="${json[index].image}"></img>
-                    </div>
                         `;
                         // index = (index + 1) % json.length;
-                     };
                 });
             });
    
@@ -53,24 +49,23 @@ window.addEventListener("load", function() {
        } else {
             pilotStatus.innerHTML = `Pilot ${pilotInput.value} is Ready`;
             copilotStatus.innerHTML = `Copilot ${copilotInput.value} is Ready`;
-            if(fuelLevelInput.value < 10000) {
-               let fuelStatus = document.getElementById("fuelStatus");
-               fuelStatus.innerHTML = `${fuelLevelInput.value} liters is not enough fuel for the journey.`;
+
+            if(fuelLevelInput.value < 10000 || cargoMassInput.value > 10000) {
                launchStatus.innerHTML = `Shuttle not ready for launch`;
                launchStatus.style.color = "red";
             } else {
                launchStatus.innerHTML = `Shuttle is ready for launch`;
                launchStatus.style.color = "green";
+            };
+            if(fuelLevelInput.value < 10000) {
+               let fuelStatus = document.getElementById("fuelStatus");
+               fuelStatus.innerHTML = `${fuelLevelInput.value} liters is not enough fuel for the journey.`;
             };
             if(cargoMassInput.value > 10000) {
                let cargoStatus = document.getElementById("cargoStatus");
                cargoStatus.innerHTML = `${cargoMassInput.value} kilograms is too much mass for the shuttle to take off.`;
-               launchStatus.innerHTML = `Shuttle not ready for launch`;
-               launchStatus.style.color = "red";
-            } else {
-               launchStatus.innerHTML = `Shuttle is ready for launch`;
-               launchStatus.style.color = "green";
             };
+
             faultyItemsList.style.visibility = "visible";
             event.preventDefault();
          }
