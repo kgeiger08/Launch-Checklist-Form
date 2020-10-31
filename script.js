@@ -2,7 +2,7 @@
 
 window.addEventListener("load", function() {
    
-   // let json = [];
+   
    fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response){
      
       response.json().then(function(json) {
@@ -21,7 +21,7 @@ window.addEventListener("load", function() {
                         </ol>
                         <img src="${json[index].image}"></img>
                         `;
-                        // index = (index + 1) % json.length;
+                        // index = (index + 1) % json.length; --working on bonus
                 });
             });
    
